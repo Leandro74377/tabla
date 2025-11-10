@@ -3,86 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Calculadora con PHP</title>
+    <title>Mini Calculadora</title>
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        form {
-            display: inline-block;
-            text-align: left;
-            border: 1px solid #ccc;
-            padding: 20px 40px;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input[type="number"], input[type="text"] {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-        .operaciones {
-            margin-top: 15px;
-            text-align: center;
-        }
-        .operaciones label {
-            font-weight: normal;
-            margin-right: 15px;
-        }
-        input[type="submit"] {
-            margin-top: 15px;
-            width: 100%;
-            padding: 8px;
-            font-weight: bold;
-            border: 1px solid #888;
-            background-color: #eaeaea;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #dcdcdc;
-        }
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        form { display: inline-block; border: 1px solid #ccc; padding: 20px 40px; border-radius: 10px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type="number"], input[type="text"] { width: 100%; padding: 5px; }
+        .operaciones { margin-top: 15px; text-align: center; }
+        .operaciones label { margin-right: 15px; }
+        input[type="submit"] { margin-top: 15px; width: 100%; padding: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>MINI CALCULADORA CON PHP</h1>
-    <form method="post" action="">
+
+    <form method="post" action="procesar.php">
         <label>Número 1:</label>
         <input type="number" name="num1" required>
 
         <label>Número 2:</label>
         <input type="number" name="num2" required>
-
-        <label>Resultado:</label>
-        <input type="text" name="resultado" readonly 
-               value="<?php
-                    if(isset($_POST['calcular'])) {
-                        $num1 = $_POST['num1'];
-                        $num2 = $_POST['num2'];
-                        $op = $_POST['operacion'];
-                        $res = '';
-                        switch($op) {
-                            case 'sumar': $res = $num1 + $num2; break;
-                            case 'restar': $res = $num1 - $num2; break;
-                            case 'multiplicar': $res = $num1 * $num2; break;
-                            case 'dividir': 
-                                $res = ($num2 != 0) ? $num1 / $num2 : 'Error';
-                                break;
-                        }
-                        echo $res;
-                    }
-               ?>">
 
         <div class="operaciones">
             <label><input type="radio" name="operacion" value="sumar" checked> SUMAR</label>
@@ -91,8 +31,7 @@
             <label><input type="radio" name="operacion" value="dividir"> DIVIDIR</label>
         </div>
 
-        <input type="submit" name="calcular" value="CALCULAR">
+        <input type="submit" value="CALCULAR">
     </form>
 </body>
 </html>
-
