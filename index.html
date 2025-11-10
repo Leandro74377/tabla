@@ -1,37 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Calculadora</title>
-    <style>
-        body { font-family: Arial; text-align: center; margin-top: 50px; }
-        form { display: inline-block; border: 1px solid #ccc; padding: 20px 40px; border-radius: 10px; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input[type="number"], input[type="text"] { width: 100%; padding: 5px; }
-        .operaciones { margin-top: 15px; text-align: center; }
-        .operaciones label { margin-right: 15px; }
-        input[type="submit"] { margin-top: 15px; width: 100%; padding: 8px; font-weight: bold; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Calculadora Neon</title>
+  <style>
+    body {
+      background-color: #0b0b0b;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #00ffcc;
+    }
+
+    h1 {
+      text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    form {
+      background-color: rgba(20, 20, 20, 0.9);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #00ffff;
+      width: 300px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1a1a1a;
+      color: #00ffcc;
+      box-shadow: inset 0 0 5px #00ffff;
+    }
+
+    input[readonly] {
+      background-color: #111;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .operaciones {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .operaciones label {
+      font-weight: normal;
+      margin-right: 10px;
+      text-shadow: none;
+    }
+
+    input[type="radio"] {
+      accent-color: #00ffff;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #00ffff;
+    }
+
+    button:hover {
+      background: #0ff;
+      box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff;
+      transform: scale(1.05);
+    }
+
+    .resultado-label {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 1.1em;
+      color: #0ff;
+      text-shadow: 0 0 10px #00ffff;
+    }
+  </style>
 </head>
 <body>
-    <h1>MINI CALCULADORA CON PHP</h1>
+  <h1>MINI CALCULADORA CON JS</h1>
 
-    <form method="post" action="procesar.php">
-        <label>Número 1:</label>
-        <input type="number" name="num1" required>
+  <form id="calculadora">
+    <label for="num1">Número 1:</label>
+    <input type="number" id="num1" required>
 
-        <label>Número 2:</label>
-        <input type="number" name="num2" required>
+    <label for="num2">Número 2:</label>
+    <input type="number" id="num2" required>
 
-        <div class="operaciones">
-            <label><input type="radio" name="operacion" value="sumar" checked> SUMAR</label>
-            <label><input type="radio" name="operacion" value="restar"> RESTAR</label>
-            <label><input type="radio" name="operacion" value="multiplicar"> MULTIPLICAR</label>
-            <label><input type="radio" name="operacion" value="dividir"> DIVIDIR</label>
-        </div>
+    <div class="operaciones">
+      <label><input type="radio" name="operacion" value="sumar" checked> SUMAR</label>
+      <label><input type="radio" name="operacion" value="restar"> RESTAR</label>
+      <label><input type="radio" name="operacion" value="multiplicar"> MULTIPLICAR</label>
+      <label><input type="radio" name="operacion" value="dividir"> DIVIDIR</label>
+    </div>
 
-        <input type="submit" value="CALCULAR">
-    </form>
+    <button type="button" onclick="calcular()">CALCULAR</button>
+
+    <div class="resultado-label">
+      <label>Resultado:</label>
+      <input type="text" id="resultado" readonly>
+    </div>
+  </form>
+
+  <script>
+    function calcular() {
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const operacion = document.querySelector('input[name="operacion"]:checked').value;
+      let resultado = '';
+
+      if (isNaN(num1) || isNaN(num2)) {
+        resultado = 'Ingrese ambos números';
+      } else {
+        switch (operacion) {
+          case 'sumar': resultado = num1 + num2; break;
+          case 'restar': resultado = num1 - num2; break;
+          case 'multiplicar': resultado = num1 * num2; break;
+          case 'dividir': 
+            resultado = num2 !== 0 ? (num1 / num2).toFixed(2) : 'Error';
+            break;
+        }
+      }
+      document.getElementById('resultado').value = resultado;
+    }
+  </script>
 </body>
 </html>
