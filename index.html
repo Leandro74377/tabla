@@ -3,35 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Mini Calculadora con PHP</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 20px 40px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        .operaciones {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .operaciones label {
+            font-weight: normal;
+            margin-right: 15px;
+        }
+        input[type="submit"] {
+            margin-top: 15px;
+            width: 100%;
+            padding: 8px;
+            font-weight: bold;
+            border: 1px solid #888;
+            background-color: #eaeaea;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #dcdcdc;
+        }
+    </style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" class="display" disabled>
-        <div class="buttons">
-            <button class="button" onclick="appendNumber(7)">7</button>
-            <button class="button" onclick="appendNumber(8)">8</button>
-            <button class="button" onclick="appendNumber(9)">9</button>
-            <button class="button" onclick="appendOperator('+')">+</button>
+    <h1>MINI CALCULADORA CON PHP</h1>
+    <form method="post" action="">
+        <label>Número 1:</label>
+        <input type="number" name="num1" required>
 
-            <button class="button" onclick="appendNumber(4)">4</button>
-            <button class="button" onclick="appendNumber(5)">5</button>
-            <button class="button" onclick="appendNumber(6)">6</button>
-            <button class="button" onclick="appendOperator('-')">-</button>
+        <label>Número 2:</label>
+        <input type="number" name="num2" required>
 
-            <button class="button" onclick="appendNumber(1)">1</button>
-            <button class="button" onclick="appendNumber(2)">2</button>
-            <button class="button" onclick="appendNumber(3)">3</button>
-            <button class="button" onclick="appendOperator('*')">*</button>
+        <label>Resultado:</label>
+        <input type="text" name="resultado" readonly 
+               value="<?php
+                    if(isset($_POST['calcular'])) {
+                        $num1 = $_POST['num1'];
+                        $num2 = $_POST['num2'];
+                        $op = $_POST['operacion'];
+                        $res = '';
+                        switch($op) {
+                            case 'sumar': $res = $num1 + $num2; break;
+                            case 'restar': $res = $num1 - $num2; break;
+                            case 'multiplicar': $res = $num1 * $num2; break;
+                            case 'dividir': 
+                                $res = ($num2 != 0) ? $num1 / $num2 : 'Error';
+                                break;
+                        }
+                        echo $res;
+                    }
+               ?>">
 
-            <button class="button" onclick="appendNumber(0)">0</button>
-            <button class="button" onclick="clearDisplay()">C</button>
-            <button class="button" onclick="calculateResult()">=</button>
-            <button class="button" onclick="appendOperator('/')">/</button>
+        <div class="operaciones">
+            <label><input type="radio" name="operacion" value="sumar" checked> SUMAR</label>
+            <label><input type="radio" name="operacion" value="restar"> RESTAR</label>
+            <label><input type="radio" name="operacion" value="multiplicar"> MULTIPLICAR</label>
+            <label><input type="radio" name="operacion" value="dividir"> DIVIDIR</label>
         </div>
-    </div>
 
-    <script src="calculator.js"></script>
+        <input type="submit" name="calcular" value="CALCULAR">
+    </form>
 </body>
 </html>
+
